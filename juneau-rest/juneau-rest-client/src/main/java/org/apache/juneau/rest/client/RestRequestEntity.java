@@ -61,6 +61,7 @@ public final class RestRequestEntity extends BasicHttpEntity {
 				if (serializer == null) {
 					// If no serializer specified, just close the stream.
 					os.close();
+					return;
 				} else {
 					SerializerSessionArgs sArgs = SerializerSessionArgs.create().schema(schema);
 					SerializerSession session = serializer.createSession(sArgs);
@@ -72,6 +73,7 @@ public final class RestRequestEntity extends BasicHttpEntity {
 				throw new org.apache.juneau.rest.client.RestCallException(e);
 			}
 		}
+		os.flush();
 	}
 
 	@Override /* BasicHttpEntity */
